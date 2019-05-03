@@ -1,0 +1,34 @@
+{% include 'blog/header.html' with page_title="Edit/Create Blog" %}
+
+{% block content%}
+  <div class="container-fluid padding-top">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <form method="POST" class="post-form">
+          {% csrf_token %}
+
+          <div class="form-label-group">
+            <label>
+              Title <strong class="mandatory">*</strong>
+              {% for error in form.title.errors %}
+                <strong class="error">{{ error }}</strong>
+              {% endfor %}
+            </label>
+            <input type="text" name="title" value="{{ blog.title }}" class="form-control" maxlength="200" placeholder="Please enter title here" required autofocus autocomplete="off">
+          </div>
+
+          <div class="form-label-group">
+            <label>
+              Text <strong class="mandatory">*</strong>
+              {% for error in form.text.errors %}
+                <strong class="error">{{ error }}</strong>
+              {% endfor %}
+            </label>
+            <textarea name="text" cols="40" class="form-control" rows="10" required autocomplete="off">{{ blog.text }}</textarea>
+          </div>
+          <button class="btn btn-md btn-primary" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

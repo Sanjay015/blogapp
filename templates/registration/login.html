@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Login</title>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <style>
+      body {
+        background-color: #e3e3e3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body">
+              <h5 class="card-title text-center">Login</h5>
+              <form class="form-signin" method="POST" action="?next={{ next|default:'/' }}">
+                {% csrf_token %}
+                <div class="form-label-group">
+                  <label>Username</label>
+                  <input type="text" name="username" class="form-control" placeholder="Enter user name" required autofocus autocomplete="off">
+                </div>
+
+                <div class="form-label-group">
+                  <label>Password</label>
+                  <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off">
+                </div>
+
+                {% if login_error %}
+                  <div class="alert alert-danger">
+                    {{ login_error }}
+                  </div>
+                {% endif %}
+
+                <button class="btn btn-sm btn-primary btn-block text-uppercase" type="submit">Login</button>
+                <div style="text-align: center">OR</div>
+                <a class="btn btn-sm btn-success btn-block text-uppercase" class="signup" href="/accounts/signup/">Sign Up</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

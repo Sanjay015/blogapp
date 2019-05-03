@@ -1,0 +1,27 @@
+{% include 'blog/header.html' with page_title="Blog Detail View" %}
+
+{% block content %}
+  <div class="container-fluid padding-top">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="blog-info">
+          <strong>Author: </strong> {{ blog.author }} |
+          <strong>Published on: </strong>{{ blog.published_date|date:"d-M-Y" }}
+          {% if user.is_authenticated and blog.author == user %}
+            <a class="btn btn-sm btn-primary" href="{% url 'edit_blog' pk=blog.pk %}">
+              <i class="fa fa-sm fa-edit">  Edit</i>
+            </a>
+            <a class="btn btn-sm btn-danger" href="{% url 'delete_blog' pk=blog.pk %}">
+              <i class="fa fa-sm fa-trash">  Delete</i>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="info">
+          <h4 class="blog-title">{{ blog.title }}</h4>
+          <p class="blog-text">{{ blog.text|linebreaksbr }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

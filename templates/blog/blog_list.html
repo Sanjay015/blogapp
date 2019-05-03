@@ -1,0 +1,43 @@
+{% include 'blog/header.html' with page_title="Blog List View" %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12 bottom-pad padding-top">
+        <div class="welcome">
+            <h1>Hi Welcome to Django Blog</h1>
+          <p>
+            This blogging application is running on django. You can create, delete and edit your blog.
+          </p>
+        </div>
+      </div>
+    </div>
+    {% if not total_blogs %}
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          No blogs available. Please click <a href="{% url 'create_new_blog' %}">here</a> to create a new blog if you wish.
+        </div>
+      </div>
+    {% else %}
+      <div class="row">
+        {% for blog in blogs %}
+          <div class="col-sm-3 col-md-3 col-lg-3 adjust-bottom">
+            <div class="tile" data-href="{% url 'blog_detail_view' pk=blog.pk %}">
+              <div class="blog-title">{{ blog.title|slice:":50" }}</div>
+              <div class="blog-details">
+                <strong>Author: </strong>{{ blog.author }}
+                <span class="pull-right published"><strong>Published: </strong>{{ blog.published_date|date:"d-M-Y" }}</span>
+              </div>
+              <p class="blog-tab">{{ blog.text|linebreaksbr|slice:":200" }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <script>
+    $(document).on('click', '.tile', function(){
+      location.href = $(this).data('href');
+    })
+  </script>
+{% endblock %}

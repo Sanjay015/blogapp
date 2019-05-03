@@ -1,0 +1,15 @@
+{% include 'blog/header.html' %}
+
+{% block content %}
+  <div class="container-fluid padding-top">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="alert alert-danger">
+          <strong>Unauthorized: 401.</strong> Sorry you are not authorized to edit this blog.
+          Click <a href="../">here</a> to go back home page.
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

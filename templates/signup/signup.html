@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <style>
+      body {
+        background-color: #e3e3e3;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body">
+              <h5 class="card-title text-center">Sign Up</h5>
+              <form class="form-signup" method="POST">
+                {% csrf_token %}
+                <div class="form-label-group">
+                  <label>Username*</label>
+                  <input type="text" name="username" class="form-control" placeholder="Enter user name" required autofocus autocomplete="off">
+                  <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+                </div>
+
+                <div class="form-label-group">
+                  <label>Password*</label>
+                  <input type="password" name="password1" class="form-control" placeholder="Password" required autocomplete="off">
+                  <span class="helptext">Should be 8 characters alphanumeric, can't be too similar to your other personal information, can't be a commonly used password</span>
+                </div>
+
+                <div class="form-label-group">
+                  <label>Password Confirmation*</label>
+                  <input type="password" name="password2" class="form-control" placeholder="Password" required autocomplete="off">
+                  <span class="helptext">Enter the same password as before, for verification</span>
+                </div>
+
+                {% for field in form %}
+                    {% for error in field.errors %}
+                      <strong class="error">{{ error }}</strong>
+                    {% endfor %}
+                {% endfor %}
+
+                <button class="btn btn-sm btn-primary btn-block text-uppercase" type="submit">Sign Up</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
