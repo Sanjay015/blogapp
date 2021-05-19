@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g94zs#y!1ci0fgi)ka6sdn%ij5t)cg!vrw&a*eukq4u2ju=e&z'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'g94zs#y!1ci0fgi)ka6sdn%ij5t)cg!vrw&a*eukq4u2ju=e&z')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', default=1))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost 127.0.0.1 [::1]').split(' ')
 
 
 # Application definition
@@ -85,6 +85,26 @@ DATABASES = {
     }
 }
 
+# Default setting for dev environment
+# SQL_PORT = '5432'
+# SQL_USER = 'djangouser'
+# SQL_DATABASE = 'blogs'
+# SQL_HOST = 'localhost'
+# SQL_PASSWORD = 'djangopassword'
+# SQL_ENGINE = 'django.db.backends.postgresql'
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": os.environ.get("SQL_ENGINE", SQL_ENGINE),
+#         "NAME": os.environ.get("SQL_DATABASE", SQL_DATABASE),
+#         "USER": os.environ.get("SQL_USER", SQL_USER),
+#         "PASSWORD": os.environ.get("SQL_PASSWORD", SQL_PASSWORD),
+#         "HOST": os.environ.get("SQL_HOST", SQL_HOST),
+#         "PORT": os.environ.get("SQL_PORT", SQL_PORT),
+#     }
+# }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -121,7 +141,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+# Super user setting by default
+SUPER_USER_EMAIL='superuser@fake.com'
+SUPER_USER_NAME='admin'
+SUPER_USER_PASS='password'
