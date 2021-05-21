@@ -1,7 +1,7 @@
 FROM continuumio/miniconda3
 
 # Install NetCat
-# RUN apt-get update && apt-get install -y netcat
+RUN apt-get update && apt-get install -y netcat
 
 # setup environment variable  
 ENV DockerHOME=/home/app/blog
@@ -20,7 +20,7 @@ ENV PYTHONUNBUFFERED 1
 COPY . $DockerHOME
 
 # make entrypoint script executable
-#RUN chmod +x $DockerHOME/entrypoint.sh
+RUN chmod +x $DockerHOME/entrypoint.sh
 
 # Update conda:
 # RUN conda update -n base -c defaults conda
@@ -29,6 +29,6 @@ COPY . $DockerHOME
 RUN conda env create -f env.yaml
 
 # Make RUN commands use the new environment:
-SHELL ["conda", "run", "-n", "blog", "/bin/bash", "-c"]
+# SHELL ["conda", "run", "-n", "blog", "/bin/bash", "-c"]
 
-#ENTRYPOINT ["/home/app/blog/entrypoint.sh"]
+ENTRYPOINT ["/home/app/blog/entrypoint.sh"]

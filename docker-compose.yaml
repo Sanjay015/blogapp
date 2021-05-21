@@ -4,33 +4,35 @@ services:
   web:
     build: .
     image: blogapp
-    command: bash -c "source activate blog && python manage.py makemigrations --noinput && python manage.py migrate --noinput && python manage.py initsuperuser && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/home/app/blog
-    ports:
-      - 8000:8000
+    expose:
+      - "8000"
+    # This will run 4 instances of the web. Eventually 4 docker containers will be created.
+    scale: 4
     env_file:
       - ./.env
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
 
-  # db:
-  #   image: postgres:latest
-  #   ports:
-  #     - 5432:5432
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data/
-  #   environment:
-  #     - POSTGRES_USER=blog
-  #     - POSTGRES_PASSWORD=password
-  #     - POSTGRES_DB=blogs
+  db:
+    image: postgres:latest
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=blog
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=blogs
 
   nginx:
     build: ./nginx
     volumes:
       - ./static/:/home/app/blog/static/
     ports:
-      - 8080:80
+      - 80:80
     depends_on:
       - web
 

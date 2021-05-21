@@ -1,3 +1,4 @@
+static/admin/
 __pycache__/
 *.pyc
 *.sqlite3

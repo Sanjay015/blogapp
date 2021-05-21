@@ -78,31 +78,31 @@ WSGI_APPLICATION = 'blogapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-# Default setting for dev environment
-# SQL_PORT = '5432'
-# SQL_USER = 'djangouser'
-# SQL_DATABASE = 'blogs'
-# SQL_HOST = 'localhost'
-# SQL_PASSWORD = 'djangopassword'
-# SQL_ENGINE = 'django.db.backends.postgresql'
-
 # DATABASES = {
-#     "default": {
-#         "ENGINE": os.environ.get("SQL_ENGINE", SQL_ENGINE),
-#         "NAME": os.environ.get("SQL_DATABASE", SQL_DATABASE),
-#         "USER": os.environ.get("SQL_USER", SQL_USER),
-#         "PASSWORD": os.environ.get("SQL_PASSWORD", SQL_PASSWORD),
-#         "HOST": os.environ.get("SQL_HOST", SQL_HOST),
-#         "PORT": os.environ.get("SQL_PORT", SQL_PORT),
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+# Default setting for dev environment
+SQL_PORT = '5432'
+SQL_USER = 'djangouser'
+SQL_DATABASE = 'blogs'
+SQL_HOST = 'localhost'
+SQL_PASSWORD = 'djangopassword'
+SQL_ENGINE = 'django.db.backends.postgresql'
+
+DATABASES = {
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", SQL_ENGINE),
+        "NAME": os.environ.get("SQL_DATABASE", SQL_DATABASE),
+        "USER": os.environ.get("SQL_USER", SQL_USER),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", SQL_PASSWORD),
+        "HOST": os.environ.get("SQL_HOST", SQL_HOST),
+        "PORT": os.environ.get("SQL_PORT", SQL_PORT),
+    }
+}
 
 
 
