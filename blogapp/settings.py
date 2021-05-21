@@ -78,25 +78,16 @@ WSGI_APPLICATION = 'blogapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 # Default setting for dev environment
 SQL_PORT = '5432'
 SQL_USER = 'djangouser'
-SQL_DATABASE = 'blogs'
 SQL_HOST = 'localhost'
 SQL_PASSWORD = 'djangopassword'
-SQL_ENGINE = 'django.db.backends.postgresql'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", SQL_ENGINE),
-        "NAME": os.environ.get("SQL_DATABASE", SQL_DATABASE),
+        "ENGINE": os.environ.get("SQL_ENGINE", 'django.db.backends.sqlite3'),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, 'db.sqlite3')),
         "USER": os.environ.get("SQL_USER", SQL_USER),
         "PASSWORD": os.environ.get("SQL_PASSWORD", SQL_PASSWORD),
         "HOST": os.environ.get("SQL_HOST", SQL_HOST),
@@ -146,6 +137,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 # Super user setting by default
-SUPER_USER_EMAIL='superuser@fake.com'
 SUPER_USER_NAME='admin'
 SUPER_USER_PASS='password'
+SUPER_USER_EMAIL='superuser@fake.com'
